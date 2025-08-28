@@ -22,7 +22,11 @@ public class CharFrequencyWithUnique {
             char c = text.charAt(i);
             boolean isUnique = true;
 
+<<<<<<< HEAD
             for (int j = 0; j < uniqueCount; j++) {CharFrequencyWithUnique
+=======
+            for (int j = 0; j < uniqueCount; j++) {
+>>>>>>> 8b25fbe99c9273580dd29ecc2c7caa798f1bd791
                 if (temp[j] == c) {
                     isUnique = false;
                     break;
