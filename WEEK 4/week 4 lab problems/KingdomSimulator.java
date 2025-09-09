@@ -40,11 +40,13 @@ class WizardTower extends MagicalStructure {
     }
 
     public WizardTower(String structureName, String[] basicSpells) {
-        this(structureName, 70, basicSpells.length * 5, basicSpells);
+        super(structureName, 70, "Unknown", true);
+        this.spellCapacity = basicSpells.length * 5;
+        this.knownSpells = Arrays.copyOf(basicSpells, basicSpells.length);
     }
 
     public WizardTower(String structureName, int magicPower, int spellCapacity, String[] knownSpells) {
-        super(structureName, magicPower);
+        super(structureName, magicPower, "Unknown", true);
         this.spellCapacity = spellCapacity;
         this.knownSpells = knownSpells;
     }
@@ -83,6 +85,13 @@ class EnchantedCastle extends MagicalStructure {
         this.hasDrawbridge = hasDrawbridge;
     }
 
+    // Added constructor to match usage in main
+    public EnchantedCastle(String structureName, int defenseRating, boolean hasDrawbridge, boolean dummy) {
+        super(structureName, 40);
+        this.defenseRating = defenseRating;
+        this.hasDrawbridge = hasDrawbridge;
+    }
+
     @Override
     public void castMagicSpell() {
         if (isActive) {
@@ -103,6 +112,12 @@ class MysticLibrary extends MagicalStructure {
 
     public MysticLibrary() {
         this("Small Library", 30, 100, "Old Tongue");
+    }
+
+    public MysticLibrary(String structureName, int magicPower, int bookCount, String ancientLanguage) {
+        super(structureName, magicPower);
+        this.bookCount = bookCount;
+        this.ancientLanguage = ancientLanguage;
     }
 
     public MysticLibrary(String structureName, int bookCount, String ancientLanguage) {
