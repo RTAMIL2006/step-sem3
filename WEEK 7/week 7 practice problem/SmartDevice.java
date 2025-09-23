@@ -1,98 +1,87 @@
-// Parent class
-class SmartDevice {
-    String deviceName;
+// File: SmartHome.java
+public class SmartDevice {
+    protected String deviceName;
 
-    SmartDevice(String deviceName) {
+    public SmartDevice(String deviceName) {
         this.deviceName = deviceName;
     }
 
-    public void status() {
-        System.out.println("Device: " + deviceName + " is connected to Smart Campus Network.");
+    public void connect() {
+        System.out.println(deviceName + " connected to Smart Home system.");
     }
 }
 
-// Smart Classroom
-class SmartClassroom extends SmartDevice {
-    SmartClassroom(String name) {
-        super(name);
+// Smart Light
+class SmartLight extends SmartDevice {
+    public SmartLight(String deviceName) {
+        super(deviceName);
     }
 
-    public void controlLighting(boolean on) {
-        System.out.println(deviceName + " - Classroom lights turned " + (on ? "ON" : "OFF"));
+    public void turnOn() {
+        System.out.println(deviceName + " light turned ON 💡");
     }
 
-    public void controlAC(int temp) {
-        System.out.println(deviceName + " - AC set to " + temp + "°C");
-    }
-
-    public void controlProjector(boolean on) {
-        System.out.println(deviceName + " - Projector turned " + (on ? "ON" : "OFF"));
+    public void turnOff() {
+        System.out.println(deviceName + " light turned OFF.");
     }
 }
 
-// Smart Lab
-class SmartLab extends SmartDevice {
-    SmartLab(String name) {
-        super(name);
+// Smart Thermostat
+class SmartThermostat extends SmartDevice {
+    public SmartThermostat(String deviceName) {
+        super(deviceName);
     }
 
-    public void manageEquipment(String equipment, boolean on) {
-        System.out.println(deviceName + " - Equipment " + equipment + " turned " + (on ? "ON" : "OFF"));
-    }
-
-    public void activateSafetySystem() {
-        System.out.println(deviceName + " - Safety system activated!");
+    public void setTemperature(int temp) {
+        System.out.println(deviceName + " temperature set to " + temp + "°C 🌡️");
     }
 }
 
-// Smart Library
-class SmartLibrary extends SmartDevice {
-    SmartLibrary(String name) {
-        super(name);
+// Smart Security Camera
+class SmartCamera extends SmartDevice {
+    public SmartCamera(String deviceName) {
+        super(deviceName);
     }
 
-    public void trackOccupancy(int people) {
-        System.out.println(deviceName + " - Current occupancy: " + people + " people.");
+    public void record() {
+        System.out.println(deviceName + " is recording 🎥");
     }
 
-    public void checkBookAvailability(String book) {
-        System.out.println(deviceName + " - Checking availability of \"" + book + "\"... Available ✅");
+    public void detectMotion() {
+        System.out.println(deviceName + " motion detected! 🚨");
     }
 }
 
-// Main system
-public class SmartCampusSystem {
+// Main System
+public class SmartHome {
     public static void main(String[] args) {
-        // Upcasting: store all devices as SmartDevice
+        // Create a mixed collection of devices (Upcasting)
         SmartDevice[] devices = {
-            new SmartClassroom("Classroom A101"),
-            new SmartLab("Physics Lab"),
-            new SmartLibrary("Central Library"),
-            new SmartClassroom("Classroom B202")
+            new SmartLight("Living Room Light"),
+            new SmartThermostat("Bedroom Thermostat"),
+            new SmartCamera("Front Door Camera")
         };
 
-        // Safe downcasting with instanceof
+        // Process devices safely with instanceof
         for (SmartDevice d : devices) {
-            d.status(); // common method
+            d.connect(); // Common method
 
-            if (d instanceof SmartClassroom) {
-                SmartClassroom sc = (SmartClassroom) d;
-                sc.controlLighting(true);
-                sc.controlAC(22);
-                sc.controlProjector(true);
+            if (d instanceof SmartLight) {
+                SmartLight light = (SmartLight) d; // Safe downcast
+                light.turnOn();
+                light.turnOff();
 
-            } else if (d instanceof SmartLab) {
-                SmartLab lab = (SmartLab) d;
-                lab.manageEquipment("Microscope", true);
-                lab.activateSafetySystem();
+            } else if (d instanceof SmartThermostat) {
+                SmartThermostat thermo = (SmartThermostat) d;
+                thermo.setTemperature(22);
 
-            } else if (d instanceof SmartLibrary) {
-                SmartLibrary lib = (SmartLibrary) d;
-                lib.trackOccupancy(120);
-                lib.checkBookAvailability("Data Structures");
+            } else if (d instanceof SmartCamera) {
+                SmartCamera cam = (SmartCamera) d;
+                cam.record();
+                cam.detectMotion();
             }
 
-            System.out.println("----------------------------");
+            System.out.println("----------------------");
         }
     }
 }
